@@ -1,0 +1,9 @@
+proto.py
+
+.mypy_cache/
+.vscode/
+
+**/__pycache__/
+
+.venv/
+.test/
