@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import typing as t
 import gc as _gc
 from itertools import repeat as _rp
