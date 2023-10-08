@@ -6,7 +6,7 @@ from time import process_time as _pf
 try:
     import numpy as np
     import numpy.typing as npt
-    from scipy.stats import _ttest_ind # type: ignore
+    from scipy.stats import ttest_ind
 except (ImportError, ModuleNotFoundError) as err:
     raise Exception("Need numpy and scipy installed for qbench.statistics") from err
 
@@ -67,13 +67,13 @@ def compare(a: t.Callable[[], t.Any], b: t.Callable[[], t.Any], n: int = 15, r: 
     _gc.collect()
     bstats = collect_stats(b, n // 2, r)
 
-    ret = _ttest_ind(astats, bstats, equal_var=False, alternative="less")
+    ret = ttest_ind(astats, bstats, equal_var=False, alternative="less")
     # pvalue is for the Null hypothesis, 1 - pvalue is alternative, which is a less than b
     return (float(np.mean(astats) - np.mean(bstats)), 1 - ret.pvalue, ret.statistic)
 
 
 def compare_from_stats(astats: Stats, bstats: Stats) -> tuple[float, float, float]:
-    ret = _ttest_ind(astats, bstats, equal_var=False, alternative="less")
+    ret = ttest_ind(astats, bstats, equal_var=False, alternative="less")
     return (float(np.mean(astats) - np.mean(bstats)), 1 - ret.pvalue, ret.statistic)
 
 
